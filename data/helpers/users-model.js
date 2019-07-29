@@ -15,7 +15,14 @@ function getById(id) {
       .first();
 }
 
+function getBy(filter) {
+    return db('users')
+      .where(filter)
+      .first();
+}
+
 module.exports = {
     add,
-    getById
+    getById,
+    getBy
 };

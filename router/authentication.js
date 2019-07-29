@@ -26,6 +26,25 @@ router.post('/register', async (req, res) => {
     }
 });
 
+router.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    if (username && password) {
+        try {
+            const user = await db.getBy({ username });
+            if (user && bcrypt.compareSync(password, user.password)) {
+                const token = generateToken(username, user.id);
+                res.status(201).json({ message: `Welcome back ${username}!`, token });
+            } else {
+                res.status(401).json({ message: 'Please provide correct username and password.' });
+            }
+        } catch (err) {
+            res.status(500).json(err.message);
+        }
+    } else {
+        res.status(401).json({ message: 'You need to enter username and password to login.' });
+    }
+});
+
 function generateToken(username, id) {
     const payload = {
         username,
