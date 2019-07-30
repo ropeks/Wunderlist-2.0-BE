@@ -41,4 +41,21 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    let { caption, description, due_date, completed, deleted } = req.body;
+    if (caption && description && due_date) {
+        due_date = new Date(...due_date);
+        const changes = { caption, description, due_date, completed, deleted };
+        try {
+            const id = await db.update(res.locals.id, req.params.id, changes);
+            const todo = await db.getById(res.locals.id, id);
+            res.status(200).json(todo);
+        } catch (err) {
+            res.status(500).json(err.message);
+        }
+    } else {
+        res.status(401).json({ message: 'You need to add caption, description and due_date to the request body.' });
+    }
+});
+
 module.exports = router;

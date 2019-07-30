@@ -16,8 +16,15 @@ function remove(userID, id) {
         .del();
 }
 
+function update(userID, id, changes) {
+    return get(userID)
+        .where({ id })
+        .update(changes);
+}
+
 module.exports = {
     remove,
     get,
-    getById
+    getById,
+    update
 };
