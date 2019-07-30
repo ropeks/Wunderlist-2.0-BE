@@ -9,6 +9,16 @@ function add(user) {
         });
 }
 
+function remove(id) {
+    return db('users')
+        .where({ id })
+        .del();
+}
+
+function get() {
+    return db('users');
+}
+
 function getById(id) {
     return db('users')
       .where({ id })
@@ -21,8 +31,17 @@ function getBy(filter) {
       .first();
 }
 
+function update(id, changes) {
+    return db('users')
+        .where({ id })
+        .update(changes);
+}
+
 module.exports = {
     add,
+    remove,
+    get,
     getById,
-    getBy
+    getBy,
+    update
 };
