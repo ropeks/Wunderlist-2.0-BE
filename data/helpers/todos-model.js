@@ -1,5 +1,14 @@
 const db = require('../dbConfig.js');
 
+function add(userID, todo) {
+    return get(userID)
+        .insert(todo, 'id')
+        .then(ids => {
+            const [id] = ids;
+            return getById(userID, id);
+        });
+}
+
 function get(userID) {
     return db('todos').where('user_id', userID);
 }
@@ -23,6 +32,7 @@ function update(userID, id, changes) {
 }
 
 module.exports = {
+    add,
     remove,
     get,
     getById,

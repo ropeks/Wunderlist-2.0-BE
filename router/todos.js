@@ -5,6 +5,23 @@ router.get('/test', (req, res) => {
     res.json({ message: 'Todos route works!' });
 });
 
+router.post('/', async (req, res) => {
+    let { caption, description, due_date } = req.body;
+    const { id } = res.locals;
+    if (caption && description && due_date) {
+        due_date = new Date(...due_date);
+        const newTodo = { user_id: id, caption, description, due_date, completed: 0, deleted: 0 };
+        try {
+            const todo = await db.add(id, newTodo);
+            res.status(200).json(todo);
+        } catch (err) {
+            res.status(500).json(err.message);
+        }
+    } else {
+        res.status(401).json({ message: 'You need to add caption, description and due_date to the request body.' });
+    }
+});
+
 router.get('/', async (req, res) => {
     try {
         const todos = await db.get(res.locals.id);
