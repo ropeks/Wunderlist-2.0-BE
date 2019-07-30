@@ -31,10 +31,22 @@ function update(userID, id, changes) {
         .update(changes);
 }
 
+function getDeleted(userID) {
+    return get(userID)
+        .where('deleted', 1);
+}
+
+function getCompleted(userID) {
+    return get(userID)
+        .where('completed', 1);
+}
+
 module.exports = {
     add,
     remove,
     get,
     getById,
-    update
+    update,
+    getDeleted,
+    getCompleted
 };

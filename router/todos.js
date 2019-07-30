@@ -32,15 +32,34 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    try {
-        const todo = await db.getById(res.locals.id, req.params.id);
-        if (todo) {
-            res.status(200).json(todo);
-        } else {
-            res.status(401).json({ message: 'You are not allowed to see this todo, as it belongs to someone else...' });
-        }
-    } catch (err) {
-        res.status(500).json(err.message);
+    switch (req.params.id) {
+        case 'deleted':
+            try {
+                const deleted = await db.getDeleted(res.locals.id);
+                res.status(200).json(deleted);
+            } catch (err) {
+                res.status(500).json(err.message);
+            }
+            break;
+        case 'completed':
+            try {
+                const completed = await db.getCompleted(res.locals.id);
+                res.status(200).json(completed);
+            } catch (err) {
+                res.status(500).json(err.message);
+            }
+            break;
+        default:
+            try {
+                const todo = await db.getById(res.locals.id, req.params.id);
+                if (todo) {
+                    res.status(200).json(todo);
+                } else {
+                    res.status(401).json({ message: 'You are not allowed to see this todo, as it belongs to someone else...' });
+                }
+            } catch (err) {
+                res.status(500).json(err.message);
+            }
     }
 });
 
