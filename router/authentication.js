@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
             const user = await db.add({username, password});
             if (user) {
                 const token = generateToken(username, user.id);
-                res.status(201).json({ message: `Hey ${username}!`, token })
+                res.status(201).json({ message: `Hey ${username}!`, token, userID: user.id })
             }
         } catch (err) {
             res.status(500).json(err.message);
@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
             const user = await db.getBy({ username });
             if (user && bcrypt.compareSync(password, user.password)) {
                 const token = generateToken(username, user.id);
-                res.status(201).json({ message: `Welcome back ${username}!`, token });
+                res.status(201).json({ message: `Welcome back ${username}!`, token, userID: user.id });
             } else {
                 res.status(401).json({ message: 'Please provide correct username and password.' });
             }
