@@ -377,13 +377,169 @@ describe('Todos Router', () => {
 
     describe('GET /api/todos/deleted', () => {
 
+        it('should return 200 status code if successful', async () => {
+            const login = await request(server)
+                .post('/api/auth/login')
+                .send(ropeksData);
+            const token = login.body.token;
+            const userID = login.body.userID;
+            const todo = await request(server)
+                .post('/api/todos')
+                .send(dummyTodo)
+                .set({ Authorization: token, UserID: userID });
+            const updatedTodo = await request(server)
+                .put(`/api/todos/${todo.body.id}`)
+                .send({ ...dummyTodo, "deleted": 1 })
+                .set({ Authorization: token, UserID: userID });
+            const response = await request(server)
+                .get(`/api/todos/deleted`)
+                .set({ Authorization: token, UserID: userID });
+            expect(response.status).toBe(200);
+        });
 
+        it('should return json object if successful', async () => {
+            const login = await request(server)
+                .post('/api/auth/login')
+                .send(ropeksData);
+            const token = login.body.token;
+            const userID = login.body.userID;
+            const todo = await request(server)
+                .post('/api/todos')
+                .send(dummyTodo)
+                .set({ Authorization: token, UserID: userID });
+            const updatedTodo = await request(server)
+                .put(`/api/todos/${todo.body.id}`)
+                .send({ ...dummyTodo, "deleted": 1 })
+                .set({ Authorization: token, UserID: userID });
+            const response = await request(server)
+                .get(`/api/todos/deleted`)
+                .set({ Authorization: token, UserID: userID });
+            expect(response.type).toBe('application/json');
+        });
+
+        it('should return requested deleted todo if successful', async () => {
+            const login = await request(server)
+                .post('/api/auth/login')
+                .send(ropeksData);
+            const token = login.body.token;
+            const userID = login.body.userID;
+            const todo = await request(server)
+                .post('/api/todos')
+                .send(dummyTodo)
+                .set({ Authorization: token, UserID: userID });
+            const updatedTodo = await request(server)
+                .put(`/api/todos/${todo.body.id}`)
+                .send({ ...dummyTodo, "deleted": 1 })
+                .set({ Authorization: token, UserID: userID }); 
+            const response = await request(server)
+                .get(`/api/todos/deleted`)
+                .set({ Authorization: token, UserID: userID });
+            expect(response['body'][0]['id']).toBe(todo.body.id);
+        });
+
+        it('should return 401 status code if you don\'t add token and userID to request headers', async () => {
+            const login = await request(server)
+                .post('/api/auth/login')
+                .send(ropeksData);
+            const token = login.body.token;
+            const userID = login.body.userID;
+            const todo = await request(server)
+                .post('/api/todos')
+                .send(dummyTodo)
+                .set({ Authorization: token, UserID: userID });
+            const updatedTodo = await request(server)
+                .put(`/api/todos/${todo.body.id}`)
+                .send({ ...dummyTodo, "deleted": 1 })
+                .set({ Authorization: token, UserID: userID });
+            const response = await request(server)
+                .get(`/api/todos/deleted`)
+                .set({});
+            expect(response.status).toBe(401);
+        });
 
     });
 
     describe('GET /api/todos/completed', () => {
 
+        it('should return 200 status code if successful', async () => {
+            const login = await request(server)
+                .post('/api/auth/login')
+                .send(ropeksData);
+            const token = login.body.token;
+            const userID = login.body.userID;
+            const todo = await request(server)
+                .post('/api/todos')
+                .send(dummyTodo)
+                .set({ Authorization: token, UserID: userID });
+            const updatedTodo = await request(server)
+                .put(`/api/todos/${todo.body.id}`)
+                .send({ ...dummyTodo, "completed": 1 })
+                .set({ Authorization: token, UserID: userID });
+            const response = await request(server)
+                .get(`/api/todos/completed`)
+                .set({ Authorization: token, UserID: userID });
+            expect(response.status).toBe(200);
+        });
 
+        it('should return json object if successful', async () => {
+            const login = await request(server)
+                .post('/api/auth/login')
+                .send(ropeksData);
+            const token = login.body.token;
+            const userID = login.body.userID;
+            const todo = await request(server)
+                .post('/api/todos')
+                .send(dummyTodo)
+                .set({ Authorization: token, UserID: userID });
+            const updatedTodo = await request(server)
+                .put(`/api/todos/${todo.body.id}`)
+                .send({ ...dummyTodo, "completed": 1 })
+                .set({ Authorization: token, UserID: userID });
+            const response = await request(server)
+                .get(`/api/todos/completed`)
+                .set({ Authorization: token, UserID: userID });
+            expect(response.type).toBe('application/json');
+        });
+
+        it('should return requested completed todo if successful', async () => {
+            const login = await request(server)
+                .post('/api/auth/login')
+                .send(ropeksData);
+            const token = login.body.token;
+            const userID = login.body.userID;
+            const todo = await request(server)
+                .post('/api/todos')
+                .send(dummyTodo)
+                .set({ Authorization: token, UserID: userID });
+            const updatedTodo = await request(server)
+                .put(`/api/todos/${todo.body.id}`)
+                .send({ ...dummyTodo, "completed": 1 })
+                .set({ Authorization: token, UserID: userID }); 
+            const response = await request(server)
+                .get(`/api/todos/completed`)
+                .set({ Authorization: token, UserID: userID });
+            expect(response['body'][0]['id']).toBe(todo.body.id);
+        });
+
+        it('should return 401 status code if you don\'t add token and userID to request headers', async () => {
+            const login = await request(server)
+                .post('/api/auth/login')
+                .send(ropeksData);
+            const token = login.body.token;
+            const userID = login.body.userID;
+            const todo = await request(server)
+                .post('/api/todos')
+                .send(dummyTodo)
+                .set({ Authorization: token, UserID: userID });
+            const updatedTodo = await request(server)
+                .put(`/api/todos/${todo.body.id}`)
+                .send({ ...dummyTodo, "completed": 1 })
+                .set({ Authorization: token, UserID: userID });
+            const response = await request(server)
+                .get(`/api/todos/completed`)
+                .set({});
+            expect(response.status).toBe(401);
+        });
 
     });
 
