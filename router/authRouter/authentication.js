@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('../data/helpers/users-model.js');
+const db = require('../../data/helpers/users-model.js');
 const secret = process.env.SECRET || 'a very secret secret';
 
 router.get('/', (req, res) => {

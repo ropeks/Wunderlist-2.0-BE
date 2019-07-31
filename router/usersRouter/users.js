@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const db = require('../data/helpers/users-model');
+const db = require('../../data/helpers/users-model');
 
 router.get('/test', (req, res) => {
     res.json({ message: 'Users route works!' });

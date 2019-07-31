@@ -2,9 +2,9 @@ const helmet = require('helmet');
 const express = require('express');
 const cors = require('cors');
 
-const authRouter = require('../router/authentication');
-const usersRouter = require('../router/users');
-const todosRouter = require('../router/todos');
+const authRouter = require('../router/authRouter/authentication');
+const usersRouter = require('../router/usersRouter/users');
+const todosRouter = require('../router/todosRouter/todos');
 const authenticator = require('../auth/authenticator');
 const idChecker = require('../auth/idChecker');
 

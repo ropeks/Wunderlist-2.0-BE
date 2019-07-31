@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const db = require('../data/helpers/todos-model');
+const db = require('../../data/helpers/todos-model');
 
 router.get('/test', (req, res) => {
     res.json({ message: 'Todos route works!' });
