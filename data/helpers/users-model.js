@@ -2,7 +2,8 @@ const db = require('../dbConfig.js');
 
 function add(user) {
     return db('users')
-        .insert(user, 'id')
+        .insert(user)
+        .returning('id')
         .then(ids => {
             const [id] = ids;
             return getById(id);
