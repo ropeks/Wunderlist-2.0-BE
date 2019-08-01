@@ -1,4 +1,4 @@
-# Wunderlist-2.0-BE
+# Wunderlist-API
 
 API for a todo list on steroids
 
