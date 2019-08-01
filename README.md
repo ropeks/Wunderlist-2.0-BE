@@ -14,6 +14,7 @@ https://wunderlist-api.herokuapp.com
 - Helmet
 - Jsonwebtoken
 - Knex
+- Postgres
 - SQLite3
 - Cross-Env (Development)
 - Jest (Development)
