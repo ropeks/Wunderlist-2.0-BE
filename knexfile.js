@@ -1,9 +1,7 @@
 module.exports = {
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './data/wunderdb.db3'
-    },
+    client: 'pg',
+    connection: 'postgres://hjlrtmbsiderkl:97ffd98cfe9c8f87d610129a67d6e1f0f8028b4a5ccf473ffc94a103dc6a8e7c@ec2-54-217-219-235.eu-west-1.compute.amazonaws.com:5432/d4cpr3jk19aov5' + '?ssl=true',
     useNullAsDefault: true,
     migrations: {
       directory: './data/migrations'
