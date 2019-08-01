@@ -1,7 +1,6 @@
 const db = require('../dbConfig.js');
 
 function add(user) {
-    console.log(user);
     return db('users')
         .insert(user)
         .returning('id')
