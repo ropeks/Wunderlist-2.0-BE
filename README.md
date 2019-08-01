@@ -35,11 +35,11 @@ npm run test
 ```
 Run database migrations
 ```
-npm knex migrate:latest
+npx knex migrate:latest
 ```
 Run database seeds
 ```
-npm knex seed:run
+npx knex seed:run
 ```
 
 
