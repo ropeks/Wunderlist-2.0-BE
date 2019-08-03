@@ -1,0 +1,4 @@
+node_modules
+.env
+data/wunderdb.db3
+data/wundertest.db3
